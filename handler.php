@@ -45,6 +45,34 @@ foreach ($arDeals as $deal) { // перебор массива сделок
                                                     'UF_CRM_1698743447' => $deal["ID"],
                                                 ],
                                         ]);
+
+                                        $deal_sales = getQuery('crm.deal.get', [
+                                            'id' => $sd["UF_CRM_1656395923"],
+                                            'select' => [  "ID","UF_CRM_1698743447"],
+                                        ]);
+                                        if (empty($deal_sales['result']['UF_CRM_1698743447'])){
+                                            $deal_sales_update = getQuery('crm.deal.update', [
+                                                'id' => $deal_sales['result']["ID"],
+                                                'fields' => [
+                                                    'UF_CRM_1698743447' => $deal["ID"],
+                                                ],
+                                            ]);
+                                        }
+
+                                        $deal_payment = getQuery('crm.deal.get', [
+                                            'id' => $sd["UF_CRM_1656395994"],
+                                            'select' => [  "ID", "UF_CRM_1698743447"],
+                                        ]);
+
+                                        if (empty($deal_payment['result']['UF_CRM_1698743447'])){
+                                            $deal_payment_update = getQuery('crm.deal.update', [
+                                                'id' => $deal_payment['result']["ID"],
+                                                'fields' => [
+                                                    'UF_CRM_1698743447' => $deal["ID"],
+                                                ],
+                                            ]);
+                                        }
+
                                         $deal_update =  getQuery('crm.deal.update', [
                                             'id' => $deal["ID"],
                                             'fields' => [
@@ -65,9 +93,3 @@ foreach ($arDeals as $deal) { // перебор массива сделок
 }
 
 ?>
-
-
-
-
-
-
